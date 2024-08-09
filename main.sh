@@ -7,11 +7,10 @@ job_name=${3}
 protocol_id=${4}
 
 # get fastq file path and extension to search all R1 fastq files
-file_extension="*R1_001.fastq.gz"
+file_extension="/*R1_001.fastq.gz"
 files_to_upload=$file_path$file_extension
 
 # create json for sample list
-
 samples=$(jq -n --arg v "$job_name" '{"job_name": $v}')
 
 # loop over all R1 fastq files and get the pair
@@ -34,9 +33,9 @@ samples=$temp
 for file in "${file_array[@]}"; do
     echo "Uploading $file"
     curl -X 'POST' \
-      'https://analysis.archerdx.com/api/file-uploads/' \
-      -H 'accept: application/json' \
-      -H 'Content-Type: multipart/form-data' \
+      "https://analysis.archerdx.com/api/file-uploads/" \
+      -H "accept: application/json" \
+      -H "Content-Type: multipart/form-data" \
       -H "Authorization: Basic $pw" \
       -F "file=@$file;type=application/gzip"
 
@@ -51,8 +50,8 @@ echo $sample_list | json_reformat > ${file_path}/sample_log.json
 echo "Submitting job"
 curl -X 'POST' \
   "https://analysis.archerdx.com/api/job-submission/protocols/${protocol_id}/submit-job" \
-  -H 'accept: application/json' \
-  -H 'Content-Type: application/json' \
+  -H "accept: application/json" \
+  -H "Content-Type: application/json" \
   -H "Authorization: Basic $pw" \
   -d "$sample_list"
 
