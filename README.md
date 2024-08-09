@@ -1,4 +1,4 @@
-# archer_api_upload
+# archer_api_upload v1.0.0
 
 This script uploads fastq.gz files from a given dir onto Archer platform and sumbits the job 
 
@@ -10,7 +10,7 @@ This script uploads fastq.gz files from a given dir onto Archer platform and sum
 
 ## Expected outputs
 - logfile.txt - txt file containg the log for file uploading and job submission
-- sample_log.json - json file containing list of samples submitted for job
+- sample_log.json - json file containing list of samples submitted for job.
 In addition to the output files above, it is expected that the submitted job starts running on Archer job platform (https://analysis.archerdx.com/home#running_jobs) 
 
 ### How to run the script
