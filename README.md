@@ -1,16 +1,16 @@
 # archer_api_upload v1.0.0
 
-This script uploads fastq.gz files from a given dir onto Archer platform and sumbits the job 
+This repository contains the scripts required for use in uploading fastq files and submitting job on Archer, via the API.
 
 ## Required inputs
-- file path (string)
+- file path (string) - dir where all fastq files are located
 - archer password in Base64 Encoded format (string)
 - job name (string)
 - protocol id (integer)
 
 ## Expected outputs
 - logfile.txt - txt file containg the log for file uploading and job submission
-- sample_log.json - json file containing list of samples submitted for job.
+- sample_log.json - json file containing the list of samples submitted for the job.
 In addition to the output files above, it is expected that the submitted job starts running on Archer job platform (https://analysis.archerdx.com/home#running_jobs) 
 
 ### How to run the script
@@ -18,18 +18,10 @@ In addition to the output files above, it is expected that the submitted job sta
 bash main.sh <path/to/dir> <archer-passward> <job_name> <protocol_id> 2>&1 | tee -a /path/to/logfile/logfile.txt
 ```
 
-### How to run in Docker
+## Docker image
+Build the docker container which contains all scripts with `make`
 
-Create docker image 
-
-`docker build -t <image_name> .`
-
-Run docker image
-
+The docker image can be run as follows:
 ```
 docker run --user $UID:$GID -v </host/volume>:/<container/volume> <image_name> <path/for/container/volume> <archer-passward> <job_name> <protocol_id> | tee -a /path/to/logfile/logfile.txt
 ```
-
-Save docker image into targz for dnanexus app
-
-`docker save <image_name>:<Tag> | gzip > <image_name>.tar.gz`
