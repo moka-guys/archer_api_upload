@@ -37,7 +37,7 @@ samples=$temp
 for file in "${file_array[@]}"; do
     echo "Uploading $file"
     curl -X 'POST' \
-      "https://analysis.archerdx.com/api/file-uploads/" \
+      "https://synnovis.analysis.archerdx.com/api/file-uploads/" \
       -H "accept: application/json" \
       -H "Content-Type: multipart/form-data" \
       -H "Authorization: Basic $pw" \
@@ -54,7 +54,7 @@ echo $sample_list | json_reformat > ${file_path}/sample_log.json
 # submit job with all samples
 echo "Submitting job"
 curl -X 'POST' \
-  "https://analysis.archerdx.com/api/job-submission/protocols/${protocol_id}/submit-job" \
+  "https://synnovis.analysis.archerdx.com/api/job-submission/protocols/${protocol_id}/submit-job" \
   -H "accept: application/json" \
   -H "Content-Type: application/json" \
   -H "Authorization: Basic $pw" \
