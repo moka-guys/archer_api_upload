@@ -1,4 +1,4 @@
-BUILD := $(shell git log -1 --pretty=%h)
+TAG := $(shell git tag -l --contains HEAD)
 DIR := $(shell pwd)
 
 # Define image names
@@ -7,18 +7,16 @@ REGISTRY := seglh
 
 # Build tags
 IMG           := $(REGISTRY)/$(APP)
-IMG_VERSIONED := $(IMG):$(BUILD)
-IMG_LATEST    := $(IMG):latest
+IMG_VERSIONED := $(IMG):$(TAG)
 
 .PHONY: push build version cleanbuild
 
 push: build
 	docker push $(IMG_VERSIONED)
-	docker push $(IMG_LATEST)
 
 build: version
 	docker buildx build --platform linux/amd64 -t $(IMG_VERSIONED) . || docker build -t $(IMG_VERSIONED) .
-	docker tag $(IMG_VERSIONED) $(IMG_LATEST)
+	docker tag $(IMG_VERSIONED) 
 	docker save $(IMG_VERSIONED) | gzip > $(DIR)/$(REGISTRY)-$(APP).tar.gz
 
 cleanbuild:
