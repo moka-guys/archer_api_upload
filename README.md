@@ -4,7 +4,7 @@ This repository contains the scripts required for use in uploading fastq files a
 
 ## Required inputs
 - file path (string) - dir where all fastq files are located
-- archer password in Base64 Encoded format (string)
+- archer password file (string) - file path containing authentication password for archer
 - job name (string)
 - protocol id (integer)
 
@@ -23,5 +23,5 @@ Build the docker container which contains all scripts with `make`
 
 The docker image can be run as follows:
 ```
-docker run --user $UID:$GID -v </host/volume>:/<container/volume> <image_name> <path/for/container/volume> <archer-passward> <job_name> <protocol_id> | tee -a /path/to/logfile/logfile.txt
+docker run --user $UID:$GID -v </host/volume>:/<container/volume> <image_name> <path/for/container/volume> <archer/passward/file/path> <job_name> <protocol_id> | tee -a /path/to/logfile/logfile.txt
 ```
