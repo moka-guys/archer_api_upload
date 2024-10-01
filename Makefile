@@ -16,7 +16,7 @@ push: build
 
 build: version
 	docker buildx build --platform linux/amd64 -t $(IMG_VERSIONED) . || docker build -t $(IMG_VERSIONED) .
-	docker tag $(IMG_VERSIONED) 
+	docker tag $(IMG_VERSIONED) $(IMG_VERSIONED) 
 	docker save $(IMG_VERSIONED) | gzip > $(DIR)/$(REGISTRY)-$(APP).tar.gz
 
 cleanbuild:
